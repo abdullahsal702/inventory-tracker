@@ -138,7 +138,7 @@ export default function Home() {
         </Box>
       </Modal>
       {/*  */}
-      <Typography variant="h2">Pantry Tracker</Typography>
+      <Typography variant="h2">Inventory Tracker</Typography>
       <Box width="20%" display="flex" flexDirection="column" gap={2}>
         <TextField
           label="Search Item"
