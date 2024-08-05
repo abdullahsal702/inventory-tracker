@@ -73,14 +73,16 @@ export default function Home() {
   };
 
   const handleSearch = () => {
-    const itemIndex = inventory.findIndex((item) =>
-      item.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    if (itemIndex !== -1 && itemRefs.current[itemIndex]) {
-      itemRefs.current[itemIndex].scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
+    if (typeof window !== "undefined") {
+      const itemIndex = inventory.findIndex((item) =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      if (itemIndex !== -1 && itemRefs.current[itemIndex]) {
+        itemRefs.current[itemIndex].scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
     }
   };
 
