@@ -18,6 +18,22 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-export const db = getFirestore(app);
+// const app = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app);
+// export const db = getFirestore(app);
+
+let analytics;
+let firestore;
+if (firebaseConfig?.projectId) {
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  if (app.name && typeof window !== "undefined") {
+    analytics = getAnalytics(app);
+  }
+
+  // Access Firebase services using shorthand notation
+  firestore = getFirestore(app);
+}
+
+export { analytics, firestore };

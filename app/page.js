@@ -16,6 +16,7 @@ import {
   TextField,
 } from "@mui/material";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+
 import {
   collection,
   doc,
@@ -24,7 +25,7 @@ import {
   getDoc,
   deleteDoc,
 } from "firebase/firestore";
-import { db } from "../firebase";
+import { firestore } from "@/firebase";
 
 export default function Home() {
   const [inventory, setInventory] = useState([]);
@@ -35,7 +36,7 @@ export default function Home() {
   const itemRefs = useRef([]);
 
   const fetchData = async () => {
-    const querySnapshot = await getDocs(collection(db, "inventory"));
+    const querySnapshot = await getDocs(collection(firestore, "inventory"));
     const inventoryList = [];
     querySnapshot.forEach((doc) => {
       inventoryList.push({ name: doc.id, ...doc.data() });
@@ -44,7 +45,7 @@ export default function Home() {
   };
 
   const addItem = async (item) => {
-    const docRef = doc(db, "inventory", item);
+    const docRef = doc(firestore, "inventory", item);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -57,7 +58,7 @@ export default function Home() {
   };
 
   const removeItem = async (item) => {
-    const docRef = doc(db, "inventory", item);
+    const docRef = doc(firestore, "inventory", item);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -102,7 +103,6 @@ export default function Home() {
       alignItems="center"
       gap={2}
     >
-      {/*  */}
       <Modal open={open} onClose={handleClose}>
         <Box
           position="absolute"
@@ -139,7 +139,6 @@ export default function Home() {
           </Button>
         </Box>
       </Modal>
-      {/*  */}
       <Typography variant="h2">Inventory Tracker</Typography>
       <Box width="20%" display="flex" flexDirection="column" gap={2}>
         <TextField
